@@ -33,6 +33,9 @@ namespace TP_INTEGRAL_PROGRAMACION
         }
         static void Main(string[] args)
         {
+            /*La idea principal de programa es trabajar con datos ya cargados
+             pero a la vez poder modificalos, ya sea para eliminar o añadir productos*/
+
             Cerveza[] infoDeCerveza = new Cerveza[]
             {
                 new Cerveza("IPA", "BARRILES", 10, 100000.00),
@@ -74,6 +77,8 @@ namespace TP_INTEGRAL_PROGRAMACION
                     VerInformacionDeProductos(infoDeCerveza); 
                     break;
                 case 3:
+                    IngresarNuevoProducto(infoDeCerveza);
+                    break;
                 case 4:
                     EliminarProducto(infoDeCerveza, productoAEliminar);
                     StockConProductoEliminado(infoDeCerveza);
@@ -116,6 +121,17 @@ namespace TP_INTEGRAL_PROGRAMACION
                     $"Stock: {cerveza.StockCerveza}, " +
                     $"Precio: {cerveza.PreciosCerveza}");
             }
+
+            infoDeCerveza = IngresarNuevoProducto(infoDeCerveza);
+
+            Console.WriteLine("\nEl stock actualizado es:");
+            foreach (Cerveza nuevaLista in infoDeCerveza)
+            {
+                Console.WriteLine($"Nombre: {nuevaLista.NombreCerveza}, " +
+                    $"Presentación: {nuevaLista.PresentacionCerveza}, " +
+                    $"Stock: {nuevaLista.StockCerveza}, " +
+                    $"Precio: {nuevaLista.PreciosCerveza}");
+            }
         }
         static Cerveza[] EliminarProducto(Cerveza[] infoDeCerveza, string productoAEliminar)
         {
@@ -147,6 +163,45 @@ namespace TP_INTEGRAL_PROGRAMACION
                     $"Precio: {nuevaLista.PreciosCerveza}");
             }
         }
+
+        static Cerveza[] IngresarNuevoProducto(Cerveza[] infoDeCerveza)
+        {
+            Console.WriteLine("\nA continuación ingrese los datos necesarios:");
+            Cerveza[] agregaInfoDeCerveza = new Cerveza[+1];
+            bool existe = false;
+
+            for (int mas = 0; mas < agregaInfoDeCerveza.Length; mas++)
+            {
+                Console.Write("Ingrese el nombre del nuevo producto: ");
+                infoDeCerveza[mas].NombreCerveza = Console.ReadLine().ToUpper();
+                Console.Write("Ingrese la presentacion del nuevo producto: ");
+                infoDeCerveza[mas].PresentacionCerveza = Console.ReadLine().ToUpper();
+                Console.Write("Ingrese la cantidad en el stock del nuevo producto: ");
+                infoDeCerveza[mas].StockCerveza = int.Parse(Console.ReadLine());
+                Console.Write("Ingrese el precio del nuevo producto: ");
+                infoDeCerveza[mas].PreciosCerveza = double.Parse(Console.ReadLine());
+                existe = true;
+            }
+            Console.WriteLine("\nLos datos del nuevo producto son:");
+
+            if (existe == true)
+            {
+                for (int mas = 0; mas < agregaInfoDeCerveza.Length; mas++)
+                {
+                    Console.WriteLine($"Nombre: {infoDeCerveza[mas].NombreCerveza}");
+                    Console.WriteLine($"Presentacion: {infoDeCerveza[mas].PresentacionCerveza}");
+                    Console.WriteLine($"Stock: {infoDeCerveza[mas].StockCerveza}");
+                    Console.WriteLine($"Precio: {infoDeCerveza[mas].PreciosCerveza}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Datos inválidos. Ingrese correctamente los datos");
+                
+            }
+            return infoDeCerveza;
+
+        } 
         
     }
 
